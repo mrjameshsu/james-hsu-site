@@ -69,7 +69,7 @@
       border-bottom: 1px solid var(--border);
     }
     .header-inner {
-      max-width: 42rem; margin: 0 auto; padding: 0 1.5rem;
+      max-width: 68rem; margin: 0 auto; padding: 0 1.5rem;
       display: flex; align-items: center; justify-content: space-between;
       height: 56px;
     }
@@ -97,7 +97,8 @@
     .tab-panel.active { display: block; }
 
     /* ── Container ── */
-    .container { max-width: 42rem; margin: 0 auto; padding: 0 1.5rem; }
+    .container { max-width: 68rem; margin: 0 auto; padding: 0 1.5rem; }
+    #tab-profile .container { max-width: 68rem; }
 
     /* ── Divider ── */
     hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
@@ -257,6 +258,39 @@
       color: var(--accent);
     }
 
+    /* Favorite rides */
+    .rides-label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--muted); margin: 1.25rem 0 0.6rem;
+    }
+    .ride-card {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 0.85rem 1rem;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+    }
+    .ride-card:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); text-decoration: none; }
+    .ride-name { font-family: "Sora", sans-serif; font-size: 0.9rem; font-weight: 600; color: var(--text); }
+    .ride-stats { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .ride-arrow { color: var(--muted2); font-size: 0.9rem; flex-shrink: 0; }
+
+    /* Strava CTA */
+    .strava-cta {
+      display: flex; align-items: center; gap: 0.85rem;
+      margin-top: 1.25rem;
+      background: #fc4c02;
+      border-radius: var(--radius);
+      padding: 0.85rem 1.1rem;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .strava-cta:hover { opacity: 0.9; transform: translateY(-1px); text-decoration: none; }
+    .strava-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .strava-text { font-size: 0.88rem; font-weight: 600; color: #fff; }
+    .strava-sub { font-size: 0.76rem; color: rgba(255,255,255,0.75); }
+
     /* ══════════════════════════════════════════
        BLOG TAB
     ══════════════════════════════════════════ */
@@ -296,7 +330,7 @@
       padding: 1.75rem 1.5rem;
       text-align: center;
       font-size: 0.78rem; color: var(--muted2);
-      max-width: 42rem; margin: 0 auto;
+      max-width: 68rem; margin: 0 auto;
     }
 
     @media (max-width: 600px) {
@@ -327,7 +361,7 @@
 <div id="tab-profile" class="tab-panel active">
   <div class="container">
 
-    <!-- Intro -->
+    <!-- Hero: high-level info -->
     <div class="intro">
       <div class="intro-top">
         <img class="headshot" src="headshot.jpg" alt="James Hsu" />
@@ -336,12 +370,11 @@
           <h1>James Hsu</h1>
           <p class="intro-sub">VP Product &amp; Data at Xero</p>
           <p class="intro-loc">📍 San Francisco Bay Area</p>
-      <p class="intro-body" style="margin-top:1.5rem">
-        Seasoned product and data science executive with over 10 years building and leading teams across startups and Fortune 500 companies. I specialize in turning data into growth — scaling acquisition funnels, building experimentation platforms, and delivering measurable business impact.
-      </p>
-      <div class="intro-links">
-        <a class="btn btn-primary" href="mailto:mr.jameshsu@gmail.com">Get in touch</a>
-        <a class="btn btn-outline" href="https://www.linkedin.com/in/james-hsu-1b67478" target="_blank">LinkedIn ↗</a>
+          <div class="intro-links">
+            <a class="btn btn-primary" href="mailto:mr.jameshsu@gmail.com">Get in touch</a>
+            <a class="btn btn-outline" href="https://www.linkedin.com/in/james-hsu-1b67478" target="_blank">LinkedIn ↗</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -355,6 +388,9 @@
 
     <!-- About -->
     <div class="section-label">About</div>
+    <p style="font-size:0.95rem;color:var(--text2);line-height:1.8;margin-bottom:0.75rem;">
+      Seasoned product and data science executive with over 10 years building and leading teams across startups and Fortune 500 companies. I specialize in turning data into growth — scaling acquisition funnels, building experimentation platforms, and delivering measurable business impact.
+    </p>
     <p style="font-size:0.95rem;color:var(--text2);line-height:1.8;margin-bottom:1rem;">
       I've led data science organizations at <strong>Xero</strong>, <strong>Apple</strong>, <strong>Coinbase</strong>, <strong>Lyft</strong>, and <strong>Meta</strong> — building teams from scratch and partnering with product and engineering to drive outcomes at scale.
     </p>
@@ -560,6 +596,51 @@
           <span class="hobby-tag">Endurance</span>
           <span class="hobby-tag">Bay Area</span>
         </div>
+
+        <div class="rides-label">Favorite Rides</div>
+        <a class="ride-card" href="https://www.strava.com/routes/83403" target="_blank">
+          <div>
+            <div class="ride-name">Alpine Dam + Mt. Tam</div>
+            <div class="ride-stats">53.7 mi &nbsp;·&nbsp; 5,445 ft elevation &nbsp;·&nbsp; Marin County</div>
+          </div>
+          <div class="ride-arrow">↗</div>
+        </a>
+
+        <a class="strava-cta" href="https://www.strava.com/athletes/4093821" target="_blank">
+          <span class="strava-icon">🟠</span>
+          <div>
+            <div class="strava-text">Follow me on Strava</div>
+            <div class="strava-sub">Connect and track rides together</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="hobby-card">
+        <div class="hobby-header">
+          <span class="hobby-emoji">🎙️</span>
+          <span class="hobby-name">Podcasts</span>
+        </div>
+        <p class="hobby-body">
+          Long drives, bike rides, and early mornings are better with a great podcast. I gravitate toward shows that go deep on business strategy and tech — the kind that leave you thinking for days. Here are the ones I keep coming back to.
+        </p>
+
+        <div class="rides-label">Favorites</div>
+
+        <a class="ride-card" href="https://www.acquired.fm/" target="_blank" style="margin-bottom:0.6rem;display:flex;">
+          <div>
+            <div class="ride-name">Acquired</div>
+            <div class="ride-stats">Ben Gilbert &amp; David Rosenthal &nbsp;·&nbsp; Business history &amp; strategy deep-dives</div>
+          </div>
+          <div class="ride-arrow">↗</div>
+        </a>
+
+        <a class="ride-card" href="https://www.nytimes.com/column/hard-fork" target="_blank" style="display:flex;">
+          <div>
+            <div class="ride-name">Hard Fork</div>
+            <div class="ride-stats">Kevin Roose &amp; Casey Newton · NYT &nbsp;·&nbsp; Tech, AI &amp; Silicon Valley</div>
+          </div>
+          <div class="ride-arrow">↗</div>
+        </a>
       </div>
 
       <div class="hobby-card">
