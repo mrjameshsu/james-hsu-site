@@ -46,6 +46,21 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* ── Headshot ── */
+    .intro-top {
+      display: flex; align-items: flex-start; gap: 2rem;
+      margin-bottom: 0;
+    }
+    .headshot {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      border: 3px solid var(--border);
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .intro-text { flex: 1; }
+
     /* ── Header ── */
     header {
       position: sticky; top: 0; z-index: 100;
@@ -314,11 +329,14 @@
 
     <!-- Intro -->
     <div class="intro">
-      <div class="intro-chip">Product &amp; Data Science Executive</div>
-      <h1>James Hsu</h1>
-      <p class="intro-sub">VP Product &amp; Data at Xero</p>
-      <p class="intro-loc">📍 San Francisco Bay Area</p>
-      <p class="intro-body">
+      <div class="intro-top">
+        <img class="headshot" src="headshot.jpg" alt="James Hsu" />
+        <div class="intro-text">
+          <div class="intro-chip">Product &amp; Data Science Executive</div>
+          <h1>James Hsu</h1>
+          <p class="intro-sub">VP Product &amp; Data at Xero</p>
+          <p class="intro-loc">📍 San Francisco Bay Area</p>
+      <p class="intro-body" style="margin-top:1.5rem">
         Seasoned product and data science executive with over 10 years building and leading teams across startups and Fortune 500 companies. I specialize in turning data into growth — scaling acquisition funnels, building experimentation platforms, and delivering measurable business impact.
       </p>
       <div class="intro-links">
