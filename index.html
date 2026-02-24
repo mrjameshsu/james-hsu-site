@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>James Hsu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #ffffff;
+      --bg2:      #f9fafb;
+      --surface:  #ffffff;
+      --border:   #e5e7eb;
+      --border2:  #d1d5db;
+      --accent:   hsl(206, 100%, 42%);
+      --accent-bg: hsl(206, 100%, 96%);
+      --text:     #111827;
+      --text2:    #374151;
+      --muted:    #6b7280;
+      --muted2:   #9ca3af;
+      --radius:   8px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text2);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Sora", sans-serif;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      max-width: 42rem; margin: 0 auto; padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 56px;
+    }
+    .header-brand {
+      font-family: "Sora", sans-serif;
+      font-weight: 700; font-size: 0.95rem;
+      color: var(--text); letter-spacing: -0.01em;
+    }
+    .header-nav { display: flex; gap: 0.25rem; }
+    .nav-btn {
+      padding: 0.4rem 0.85rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem; font-weight: 500;
+      font-family: "IBM Plex Sans", sans-serif;
+      color: var(--muted);
+      background: none; border: none;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-btn:hover { background: var(--bg2); color: var(--text); }
+    .nav-btn.active { background: var(--bg2); color: var(--text); font-weight: 600; }
+
+    /* ── Tab panels ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Container ── */
+    .container { max-width: 42rem; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    /* ══════════════════════════════════════════
+       PROFILE TAB
+    ══════════════════════════════════════════ */
+
+    /* Hero / intro */
+    .intro {
+      padding: 4rem 0 2.5rem;
+    }
+    .intro-chip {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--accent-bg);
+      padding: 0.25rem 0.7rem; border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+    .intro h1 {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 700; margin-bottom: 0.75rem;
+    }
+    .intro-sub {
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 0.25rem;
+    }
+    .intro-loc { font-size: 0.88rem; color: var(--muted2); margin-bottom: 2rem; }
+    .intro-body {
+      font-size: 1rem; color: var(--text2); line-height: 1.8;
+      margin-bottom: 1.75rem; max-width: 36rem;
+    }
+    .intro-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.5rem 1.1rem; border-radius: var(--radius);
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      transition: all 0.15s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.88; text-decoration: none; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+    .btn-outline { background: var(--bg); color: var(--text2); border: 1px solid var(--border2); }
+    .btn-outline:hover { background: var(--bg2); text-decoration: none; transform: translateY(-1px); }
+
+    /* Stats */
+    .stats-row {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 3rem;
+    }
+    .stat-num { font-family: "Sora", sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text); }
+    .stat-label { font-size: 0.78rem; color: var(--muted); }
+
+    /* Section labels */
+    .section-label {
+      font-family: "Sora", sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 1.5rem;
+    }
+
+    /* Languages */
+    .lang-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .lang-chip {
+      font-size: 0.8rem; padding: 0.28rem 0.75rem;
+      border-radius: 100px; border: 1px solid var(--border2);
+      color: var(--muted);
+    }
+    .lang-chip strong { color: var(--text2); font-weight: 500; }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .job {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .job:last-child { border-bottom: none; }
+    .job-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.2rem; }
+    .job-company { font-size: 0.82rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
+    .job-period { font-size: 0.78rem; color: var(--muted2); white-space: nowrap; }
+    .job-title { font-family: "Sora", sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+    .job-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+    .job-desc ul { list-style: none; padding: 0; }
+    .job-desc li { padding-left: 1rem; position: relative; margin-bottom: 0.15rem; }
+    .job-desc li::before { content: "–"; position: absolute; left: 0; color: var(--muted2); }
+
+    /* Skills */
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill {
+      font-size: 0.8rem; font-weight: 500;
+      padding: 0.3rem 0.8rem; border-radius: 100px;
+      background: var(--bg2); border: 1px solid var(--border);
+      color: var(--text2);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .skill:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+
+    /* Education */
+    .edu-list { display: flex; flex-direction: column; gap: 1rem; }
+    .edu-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .edu-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .edu-icon {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .edu-school { font-family: "Sora", sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); }
+    .edu-degree { font-size: 0.82rem; color: var(--muted); margin-top: 0.1rem; }
+
+    /* Contact inline */
+    .contact-block {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      text-align: center; margin: 3rem 0;
+    }
+    .contact-block h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .contact-block p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .contact-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ══════════════════════════════════════════
+       HOBBIES TAB
+    ══════════════════════════════════════════ */
+    .page-intro { padding: 4rem 0 2.5rem; }
+    .page-intro h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .page-intro p { font-size: 1rem; color: var(--muted); max-width: 32rem; }
+
+    .hobby-cards { display: flex; flex-direction: column; gap: 1.25rem; }
+    .hobby-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .hobby-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .hobby-header { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.9rem; }
+    .hobby-emoji { font-size: 1.75rem; }
+    .hobby-name { font-family: "Sora", sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--text); }
+    .hobby-body { font-size: 0.92rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.1rem; }
+    .hobby-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .hobby-tag {
+      font-size: 0.76rem; font-weight: 500;
+      padding: 0.22rem 0.65rem; border-radius: 100px;
+      background: var(--accent-bg); border: 1px solid hsl(206,100%,85%);
+      color: var(--accent);
+    }
+
+    /* ══════════════════════════════════════════
+       BLOG TAB
+    ══════════════════════════════════════════ */
+    .blog-cards { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .blog-card {
+      background: var(--bg); padding: 1.5rem;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s, transform 0.15s;
+      cursor: pointer;
+    }
+    .blog-card:last-child { border-bottom: none; }
+    .blog-card:hover { background: var(--bg2); }
+    .blog-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      color: var(--accent); background: var(--accent-bg);
+      padding: 0.18rem 0.6rem; border-radius: 100px;
+      margin-bottom: 0.5rem;
+    }
+    .blog-title { font-family: "Sora", sans-serif; font-size: 0.97rem; font-weight: 600; color: var(--text); margin-bottom: 0.4rem; line-height: 1.35; }
+    .blog-excerpt { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+    .blog-meta { font-size: 0.75rem; color: var(--muted2); margin-top: 0.6rem; }
+    .blog-arrow { color: var(--muted2); font-size: 1rem; flex-shrink: 0; margin-top: 0.25rem; }
+
+    .blog-cta {
+      margin-top: 2rem;
+      padding: 2rem; text-align: center;
+      border: 1px dashed var(--border2); border-radius: var(--radius);
+    }
+    .blog-cta p { font-size: 0.88rem; color: var(--muted); margin: 0.35rem 0 1.25rem; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      font-size: 0.78rem; color: var(--muted2);
+      max-width: 42rem; margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .stats-row { gap: 1.5rem; }
+      .intro h1 { font-size: 1.9rem; }
+      .blog-card { flex-direction: column; }
+      .blog-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <div class="header-brand">James Hsu</div>
+    <nav class="header-nav">
+      <button class="nav-btn active" onclick="showTab('profile', this)">Profile</button>
+      <button class="nav-btn" onclick="showTab('hobbies', this)">Hobbies</button>
+      <button class="nav-btn" onclick="showTab('blog', this)">Blog</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     PROFILE
+══════════════════════════════════════════ -->
+<div id="tab-profile" class="tab-panel active">
+  <div class="container">
+
+    <!-- Intro -->
+    <div class="intro">
+      <div class="intro-chip">Product &amp; Data Science Executive</div>
+      <h1>James Hsu</h1>
+      <p class="intro-sub">VP Product &amp; Data at Xero</p>
+      <p class="intro-loc">📍 San Francisco Bay Area</p>
+      <p class="intro-body">
+        Seasoned product and data science executive with over 10 years building and leading teams across startups and Fortune 500 companies. I specialize in turning data into growth — scaling acquisition funnels, building experimentation platforms, and delivering measurable business impact.
+      </p>
+      <div class="intro-links">
+        <a class="btn btn-primary" href="mailto:mr.jameshsu@gmail.com">Get in touch</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/james-hsu-1b67478" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div><div class="stat-num">10+</div><div class="stat-label">Years experience</div></div>
+      <div><div class="stat-num">5</div><div class="stat-label">Executive roles</div></div>
+      <div><div class="stat-num">$400M+</div><div class="stat-label">Incremental impact</div></div>
+      <div><div class="stat-num">20+</div><div class="stat-label">Team size built</div></div>
+    </div>
+
+    <!-- About -->
+    <div class="section-label">About</div>
+    <p style="font-size:0.95rem;color:var(--text2);line-height:1.8;margin-bottom:1rem;">
+      I've led data science organizations at <strong>Xero</strong>, <strong>Apple</strong>, <strong>Coinbase</strong>, <strong>Lyft</strong>, and <strong>Meta</strong> — building teams from scratch and partnering with product and engineering to drive outcomes at scale.
+    </p>
+    <div class="lang-row">
+      <div class="lang-chip"><strong>Chinese</strong> — Native / Bilingual</div>
+      <div class="lang-chip"><strong>Spanish</strong> — Limited Working</div>
+    </div>
+
+    <hr />
+
+    <!-- Experience -->
+    <div class="section-label">Experience</div>
+    <div class="timeline">
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">Xero</span>
+          <span class="job-period">Apr 2024 – Present</span>
+        </div>
+        <div class="job-title">VP Product and Data</div>
+        <div class="job-desc">Leading Product, Data, and Experimentation.</div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">Apple</span>
+          <span class="job-period">Dec 2022 – Feb 2024</span>
+        </div>
+        <div class="job-title">Head of Data Science — Apple Cloud Services</div>
+        <div class="job-desc">Drove data science strategy across iCloud+, Photos, Videos, Mail, Messages, Enterprise, Education, Family, and Infrastructure.</div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">Coinbase</span>
+          <span class="job-period">Feb 2022 – Dec 2022</span>
+        </div>
+        <div class="job-title">Head of Data Science &amp; Engineering — Retail Trading, Acquisition &amp; Growth</div>
+        <div class="job-desc">
+          <ul>
+            <li>Led 20+ scientists, analysts, and engineers across Growth, International, and Retail Trading</li>
+            <li>Focused on acquisition and engagement for trading and Coinbase One, the company's membership product</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">Lyft</span>
+          <span class="job-period">May 2018 – Feb 2022</span>
+        </div>
+        <div class="job-title">Head of Data Science &amp; Engineering — Micromobility</div>
+        <div class="job-desc">
+          <ul>
+            <li>Built the TBS data science and engineering team from 1 to 20+</li>
+            <li>Owned Platform (fraud, payments, reliability), Rider (growth, experience, pricing), and Hardware</li>
+            <li>Previously Senior Data Science Manager for Micromobility (May 2018 – Feb 2021)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">Meta</span>
+          <span class="job-period">Jan 2016 – May 2018</span>
+        </div>
+        <div class="job-title">Senior Data Scientist — AR/VR Growth</div>
+        <div class="job-desc">
+          <ul>
+            <li>Data Science lead for Growth on the Oculus AR/VR platform — acquisition and retention</li>
+            <li>Decreased one-and-done rate 20% in H1 via A/B-tested engagement tactics</li>
+            <li>Owned Oculus Demos engagement strategy including investment and content tradeoffs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">Lyft</span>
+          <span class="job-period">Jun 2014 – Jan 2016</span>
+        </div>
+        <div class="job-title">Analytics Manager &amp; Senior Data Analyst — Lyft Line</div>
+        <div class="job-desc">
+          <ul>
+            <li>Built Lyft Line analytics infrastructure from scratch; developed V1 matching algorithm for Shared Rides</li>
+            <li>Partnered with CFO on data visualizations for Series C &amp; D fundraising, totaling ~$1B</li>
+            <li>Led rollout of Chartio, Looker, and Mode to build a data-driven culture</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">SurveyMonkey</span>
+          <span class="job-period">2013 – Jun 2014</span>
+        </div>
+        <div class="job-title">Business Intelligence Analyst</div>
+        <div class="job-desc">Designed A/B tests, built dashboards and KPIs, and launched mobile analytics infrastructure using Flurry.</div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">ID Analytics</span>
+          <span class="job-period">2011 – 2012</span>
+        </div>
+        <div class="job-title">Business Analyst</div>
+        <div class="job-desc">Designed multi-million dollar fraud reduction pitch decks; benchmarked client performance metrics.</div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <span class="job-company">VantagePoint Venture Capital</span>
+          <span class="job-period">Jul – Sep 2010</span>
+        </div>
+        <div class="job-title">Analyst</div>
+        <div class="job-desc">Supported management of $4.5B in assets; analyzed business plans and conducted competitive research.</div>
+      </div>
+
+    </div>
+
+    <hr />
+
+    <!-- Skills -->
+    <div class="section-label">Skills</div>
+    <div class="skills-wrap">
+      <span class="skill">Data Science</span>
+      <span class="skill">Product Management</span>
+      <span class="skill">Data Analysis</span>
+      <span class="skill">Financial Modeling</span>
+      <span class="skill">Strategy</span>
+      <span class="skill">A/B Testing</span>
+      <span class="skill">Experimentation</span>
+      <span class="skill">Growth</span>
+      <span class="skill">Team Building</span>
+      <span class="skill">LTV Modeling</span>
+      <span class="skill">Data Engineering</span>
+      <span class="skill">SQL</span>
+      <span class="skill">Acquisition &amp; Retention</span>
+      <span class="skill">Executive Leadership</span>
+      <span class="skill">Analytics Infrastructure</span>
+      <span class="skill">Fraud &amp; Risk</span>
+    </div>
+
+    <hr />
+
+    <!-- Education -->
+    <div class="section-label">Education</div>
+    <div class="edu-list">
+      <div class="edu-card">
+        <div class="edu-icon">🎓</div>
+        <div>
+          <div class="edu-school">Stanford University — Graduate School of Business</div>
+          <div class="edu-degree">Stanford Executive Program</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-icon">🐻</div>
+        <div>
+          <div class="edu-school">University of California, Los Angeles (UCLA)</div>
+          <div class="edu-degree">B.S. Mathematical Economics · Business Chinese</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-block">
+      <h3>Let's connect</h3>
+      <p>Open to conversations about data, product, and leadership.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:mr.jameshsu@gmail.com">mr.jameshsu@gmail.com</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/james-hsu-1b67478" target="_blank">LinkedIn ↗</a>
+      </div>
+    </div>
+
+  </div><!-- /container -->
+  <footer>&copy; 2026 James Hsu · San Francisco Bay Area</footer>
+</div><!-- /tab-profile -->
+
+
+<!-- ══════════════════════════════════════════
+     HOBBIES
+══════════════════════════════════════════ -->
+<div id="tab-hobbies" class="tab-panel">
+  <div class="container">
+
+    <div class="page-intro">
+      <h1>Hobbies &amp; Interests</h1>
+      <p>What I do when I'm not building data teams.</p>
+    </div>
+
+    <div class="hobby-cards">
+
+      <div class="hobby-card">
+        <div class="hobby-header">
+          <span class="hobby-emoji">🚴</span>
+          <span class="hobby-name">Cycling</span>
+        </div>
+        <p class="hobby-body">
+          Whether it's a long weekend road ride through the hills of the Bay Area or a challenging climb, cycling is my go-to for clearing my head. There's something about the mix of endurance, strategy, and the open road that resonates with how I approach problem-solving at work. The Bay Area offers some of the best riding in the country — and I try to make the most of it.
+        </p>
+        <div class="hobby-tags">
+          <span class="hobby-tag">Road Cycling</span>
+          <span class="hobby-tag">Endurance</span>
+          <span class="hobby-tag">Bay Area</span>
+        </div>
+      </div>
+
+      <div class="hobby-card">
+        <div class="hobby-header">
+          <span class="hobby-emoji">🎾</span>
+          <span class="hobby-name">Tennis</span>
+        </div>
+        <p class="hobby-body">
+          Tennis has been a constant in my life — I love the mix of athleticism, tactics, and mental focus the sport demands. Whether it's a casual match with friends or a competitive set, tennis keeps me sharp and competitive off the court just as much as on it. Always looking for a good match in the Bay Area.
+        </p>
+        <div class="hobby-tags">
+          <span class="hobby-tag">Competitive</span>
+          <span class="hobby-tag">Singles &amp; Doubles</span>
+          <span class="hobby-tag">Bay Area</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="contact-block" style="margin-top:2.5rem">
+      <h3>Always up for a match</h3>
+      <p>Based in the Bay Area — hit me up if you want to ride or play tennis.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:mr.jameshsu@gmail.com">Say hello</a>
+      </div>
+    </div>
+
+  </div>
+  <footer>&copy; 2026 James Hsu · San Francisco Bay Area</footer>
+</div><!-- /tab-hobbies -->
+
+
+<!-- ══════════════════════════════════════════
+     BLOG
+══════════════════════════════════════════ -->
+<div id="tab-blog" class="tab-panel">
+  <div class="container">
+
+    <div class="page-intro">
+      <h1>Blog</h1>
+      <p>Thoughts on data, product, leadership, and building teams at scale.</p>
+    </div>
+
+    <div class="blog-cards">
+
+      <div class="blog-card">
+        <div>
+          <div class="blog-tag">Data Science</div>
+          <div class="blog-title">How I think about building a Data Science team from scratch</div>
+          <div class="blog-excerpt">Going from 1 to 20+ data scientists isn't just a hiring problem — it's a culture, infrastructure, and expectation-setting problem. Here's the playbook I've refined across Lyft, Coinbase, Apple, and Xero.</div>
+          <div class="blog-meta">Coming soon</div>
+        </div>
+        <div class="blog-arrow">→</div>
+      </div>
+
+      <div class="blog-card">
+        <div>
+          <div class="blog-tag">Growth</div>
+          <div class="blog-title">Measuring what matters: the $400M experiment framework</div>
+          <div class="blog-excerpt">A/B testing is easy to do wrong and hard to do well at scale. This post covers how my team at Lyft built an experimentation culture that reliably delivered hundreds of millions in incremental impact every quarter.</div>
+          <div class="blog-meta">Coming soon</div>
+        </div>
+        <div class="blog-arrow">→</div>
+      </div>
+
+      <div class="blog-card">
+        <div>
+          <div class="blog-tag">Leadership</div>
+          <div class="blog-title">Data Science at Big Tech vs. startups — what actually changes</div>
+          <div class="blog-excerpt">Having led teams at Apple and at growth-stage companies like Coinbase and Xero, the differences go deeper than headcount and resources. This is what I've learned about adapting your leadership style to the environment.</div>
+          <div class="blog-meta">Coming soon</div>
+        </div>
+        <div class="blog-arrow">→</div>
+      </div>
+
+      <div class="blog-card">
+        <div>
+          <div class="blog-tag">Product</div>
+          <div class="blog-title">The data leader's guide to working with Product teams</div>
+          <div class="blog-excerpt">The best data organizations aren't support functions — they're strategic partners. Here's how I structure the relationship between data science and product to drive real business outcomes.</div>
+          <div class="blog-meta">Coming soon</div>
+        </div>
+        <div class="blog-arrow">→</div>
+      </div>
+
+    </div>
+
+    <div class="blog-cta">
+      <strong style="font-family:'Sora',sans-serif;font-size:1rem;">Posts coming soon</strong>
+      <p>Reach out if you'd like to be notified when new posts go live.</p>
+      <a class="btn btn-primary" href="mailto:mr.jameshsu@gmail.com">Get notified</a>
+    </div>
+
+  </div>
+  <footer>&copy; 2026 James Hsu · San Francisco Bay Area</footer>
+</div><!-- /tab-blog -->
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
